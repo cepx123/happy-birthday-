@@ -115,7 +115,7 @@
         </p>
         
     <!-- Tambahkan di bawah <p class="message"> -->
-<button id="runPythonBtn" style="
+<button id="runJsBtn" style="
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 1.2em;
@@ -132,13 +132,17 @@
 <div id="output" style="margin-top: 20px; font-size: 1.2em; color: #3742fa;"></div>
 
 <script>
-document.getElementById('runPythonBtn').addEventListener('click', function() {
-    fetch('/run_hbd', { method: 'POST' })
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('output').innerText = data;
-    })
-    .catch(error => console.error('Error:', error));
+document.getElementById('runJsBtn').addEventListener('click', function() {
+
+    // Pesan yang sebelumnya kamu inginkan dari Python
+    const result = "🎉 Selamat sayang! Tombolnya berhasil ditekan 💖";
+
+    // Tampilkan ke HTML
+    document.getElementById("output").innerText = result;
+
+    // Efek kecil tambahan (optional)
+    document.body.style.transition = "background 0.5s ease";
+    document.body.style.background = "linear-gradient(135deg, #ffecd2, #fcb69f)";
 });
 </script>
         
