@@ -147,7 +147,159 @@ document.getElementById('runJsBtn').addEventListener('click', function() {
 </script>
         
     </div>
+<div id="output" style="margin-top: 20px; font-size: 1.2em; color: #3742fa;"></div>
 
+<!-- Popup -->
+<div id="popup" style="
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+">
+    <div style="
+        background: white;
+        padding: 20px 30px;
+        border-radius: 15px;
+        text-align: center;
+        max-width: 300px;
+        animation: pop 0.5s ease;
+    ">
+        <h2 style="color:#ff6b6b;">💖 Happy Birthday! 💖</h2>
+        <p id="popupText" style="font-size: 1.1em;"></p>
+        <button onclick="closePopup()" style="
+            margin-top:10px;
+            padding:10px 20px;
+            background:#ff6b6b;
+            border:none;
+            color:white;
+            border-radius:10px;
+        ">Tutup</button>
+    </div>
+</div>
+
+<!-- Heart animation container -->
+<div id="hearts"></div>
+
+<!-- Music -->
+<audio id="hbdMusic" src="https://cdn.pixabay.com/download/audio/2021/09/16/audio_45c56fb831.mp3" preload="auto"></audio>
+
+<style>
+@keyframes floatHeart {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-300px) scale(1.5); opacity: 0; }
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-50px) rotate(0deg); }
+    100% { transform: translateY(400px) rotate(360deg); }
+}
+
+@keyframes pop {
+    0% { transform: scale(0.5); opacity:0; }
+    100% { transform: scale(1); opacity:1; }
+}
+
+.shake {
+    animation: shakeAnim 0.4s;
+}
+
+@keyframes shakeAnim {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+</style>
+
+<script>
+
+document.getElementById('runJsBtn').addEventListener('click', function() {
+
+    // 1️⃣ Tombol shake
+    let btn = document.getElementById("runJsBtn");
+    btn.classList.add("shake");
+    setTimeout(() => btn.classList.remove("shake"), 500);
+
+    // 2️⃣ Music play
+    let music = document.getElementById("hbdMusic");
+    music.currentTime = 0;
+    music.play();
+
+    // 3️⃣ Background change
+    document.body.style.transition = "background 1s ease";
+    document.body.style.background = "linear-gradient(135deg, #ffe8f0, #ffc3c3, #ffec99)";
+
+    // 4️⃣ Teks muncul typing
+    const msg = "🎉 Selamat sayang! Aku sayang banget sama kamu 💖✨";
+    let i = 0;
+    function type() {
+        if (i < msg.length) {
+            document.getElementById("output").innerText += msg.charAt(i);
+            i++;
+            setTimeout(type, 50);
+        }
+    }
+    document.getElementById("output").innerText = "";
+    type();
+
+    // 5️⃣ Popup romantic
+    showPopup("Semoga hari ini seindah senyummu, dan semoga semua harapanmu terkabul. Aku cinta kamu 💕");
+
+    // 6️⃣ Hearts animation
+    for (let h = 0; h < 15; h++) {
+        createHeart();
+    }
+
+    // 7️⃣ Confetti animation
+    for (let c = 0; c < 25; c++) {
+        createConfetti();
+    }
+});
+
+// === POPUP ===
+function showPopup(text) {
+    document.getElementById("popupText").innerText = text;
+    document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+// === HEARTS ===
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.innerHTML = "❤️";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "20px";
+    heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+    heart.style.animation = "floatHeart 2s linear forwards";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2000);
+}
+
+// === CONFETTI ===
+function createConfetti() {
+    const conf = document.createElement("div");
+    conf.style.position = "fixed";
+    conf.style.left = Math.random() * 100 + "vw";
+    conf.style.top = "-10px";
+    conf.style.width = "8px";
+    conf.style.height = "8px";
+    conf.style.background = ["#ff6b6b", "#ffcc00", "#00d4ff", "#8e44ad"][Math.floor(Math.random()*4)];
+    conf.style.opacity = "0.9";
+    conf.style.borderRadius = "2px";
+    conf.style.animation = "confettiFall 1s linear forwards";
+    document.body.appendChild(conf);
+    setTimeout(() => conf.remove(), 1200);
+}
+
+                              </script>
     <script>
         // Animasi confetti sederhana
         function createConfetti() {
